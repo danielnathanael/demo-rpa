@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <title>Login</title>
+</head>
+
+<body>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="?">
+                <div class="has-text-weight-bold">
+                    Demo System
+                </div>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-light">
+                            Sign Out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="main-content columns is-fullheight">
+        <aside class="column is-2 is-fullheight section">
+            <p class="menu-label">
+                General
+            </p>
+            <ul class="menu-list">
+                <li><a href="home.html">Home</a></li>
+            </ul>
+            <p class="menu-label">
+                Core Banking
+            </p>
+            <ul class="menu-list">
+                <li><a href="cif-find.html">Find CIF</a></li>
+                <li><a href="cif-create.html">Create CIF</a></li>
+            </ul>
+        </aside>
+
+        <div class="container">
+            <div class="section">
+                <div class="is-size-3 has-text-weight-semibold">Create CIF</div>
+                <div>Fill Customer Information:</div>
+                <div class="columns is-multiline mx-1 mt-1 mb-0">
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label class="label">Full Name</label>
+                            <input id="full-name" class="input is-small is-primary" type="text" placeholder="Full Name">
+                        </div>
+                        <div class="field">
+                            <label class="label">National Identification Number</label>
+                            <input id="id-number" class="input is-small is-primary" type="text"
+                                placeholder="National Identification Number">
+                        </div>
+                        <div class="field">
+                            <label class="label">Address</label>
+                            <input id="address" class="input is-small is-primary" type="text" placeholder="Address">
+                        </div>
+                        <div class="field">
+                            <label class="label">CIF ID</label>
+                            <input id="cif-id" class="input is-small is-primary has-text-weight-bold" type="text" placeholder="CIF ID" readonly>
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label class="label">Phone Number</label>
+                            <input id="phone-number" class="input is-small is-primary" type="text"
+                                placeholder="Phone Number">
+                        </div>
+                        <div class="field">
+                            <label class="label">Passport Number</label>
+                            <input id="passport-number" class="input is-small is-primary" type="text"
+                                placeholder="Passport Number">
+                        </div>
+                        <div class="field">
+                            <label class="label">Gender</label>
+                            <input id="gender" class="input is-small is-primary" type="text" placeholder="Gender">
+                        </div>
+                    </div>
+                </div>
+                <button class="ml-4 button is-primary is-small" id="create-cif" onclick="createCIF()">Create
+                    CIF</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function createCIF() {
+            let createButton = document.getElementById('create-cif')
+            createButton.classList.add('is-loading')
+
+            setTimeout(function () {
+                let fullname = document.getElementById('full-name')
+                let idNumber = document.getElementById('id-number')
+                let address = document.getElementById('address')
+                let phoneNumber = document.getElementById('phone-number')
+                let passportNumber = document.getElementById('passport-number')
+                let gender = document.getElementById('gender')
+                let cifId = document.getElementById('cif-id')
+
+                if (fullname.value.trim() == "") fullname.classList.add('is-danger')
+                if (idNumber.value.trim() == "") idNumber.classList.add('is-danger')
+                if (address.value.trim() == "") address.classList.add('is-danger')
+                if (phoneNumber.value.trim() == "") phoneNumber.classList.add('is-danger')
+                if (passportNumber.value.trim() == "") passportNumber.classList.add('is-danger')
+                if (gender.value.trim() == "") gender.classList.add('is-danger')
+
+                cifId.value = Math.floor(Math.random()*89999+10000)
+                createButton.classList.remove('is-loading')
+            }, 2000)
+        }
+    </script>
+</body>
+
+</html>
