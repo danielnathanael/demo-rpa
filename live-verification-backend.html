@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="state.js"></script>
+    <title>Live Verification Backend</title>
+</head>
+
+
+<script>
+    let cifs = [
+        {
+            id: "66017427",
+            fullName: "Dian Andriani",
+            phoneNumber: "0800 2113 931",
+            idNumber: "389145991923698",
+            passportNumber: "00782439",
+            address: "Jln. Hang No. 797, Tanjung Pinang 71078, NTB",
+            gender: "Female",
+        },
+        {
+            id: "85596641",
+            fullName: "Jelita Laksmiwati",
+            phoneNumber: "0762 3878 2594",
+            idNumber: "371580366804166",
+            passportNumber: "09253473",
+            address: "Ki. Bank Dagang Negara No. 158, Pariaman 35632, SulTra",
+            gender: "Female",
+        },
+        {
+            id: "34422208",
+            fullName: "Dian Samiah Lailasari",
+            phoneNumber: "0936 5262 3985",
+            idNumber: "340538540454262",
+            passportNumber: "37537944",
+            address: "Jr. Bara Tambar No. 55, Bontang 85220, DKI",
+            gender: "Female",
+        },
+        {
+            id: "73484921",
+            fullName: "Tomi Ramadan",
+            phoneNumber: "0973 9092 4706",
+            idNumber: "333758103641806",
+            passportNumber: "94927615",
+            address: "Gg. Sugiyopranoto No. 76, Subulussalam 17442, SulUt",
+            gender: "Male",
+        },
+        {
+            id: "15111525",
+            fullname: "Panji Saputra",
+            phoneNumber: "0754 7940 7673",
+            idNumber: "341323977905918",
+            passportNumber: "27115491",
+            address: "Jr. Otista No. 507, Palopo 94139, NTB",
+            gender: "Male",
+        }
+    ]
+</script>
+
+<body>
+    <div class="section">
+        <div class="has-text-centered is-size-2">Live Verification Backend</div>
+        <div class="has-text-centered is-size-5">Saved Customer Today</div>
+        <div class="columns is-centered mt-4">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Account Number</th>
+                        <th>National Identification Number</th>
+                        <th>Full Name</th>
+                        <th>Address</th>
+                        <th>Phone Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>1</th>
+                        <td>66017427</td>
+                        <td>389145991923698</td>
+                        <td>Dian Andriani</td>
+                        <td>Jln. Hang No. 797, Tanjung Pinang 71078, NTB</td>
+                        <td>0800 2113 931</td>
+                    </tr>
+                    <tr>
+                        <th>2</th>
+                        <td>85596641</td>
+                        <td>371580366804166</td>
+                        <td>Jelita Laksmiwati</td>
+                        <td>Ki. Bank Dagang Negara No. 158, Pariaman 35632, SulTra</td>
+                        <td>0762 3878 2594</td>
+                    </tr>
+                    <tr>
+                        <th>3</th>
+                        <td>73484921</td>
+                        <td>333758103641806</td>
+                        <td>Tomi Ramadan</td>
+                        <td>Gg. Sugiyopranoto No. 76, Subulussalam 17442, SulUt</td>
+                        <td>0973 9092 4706</td>
+                    </tr>
+                    <tr>
+                        <th>4</th>
+                        <td id="cookie-accnum"></td>
+                        <td id="cookie-national-id"></td>
+                        <td id="cookie-full-name"></td>
+                        <td id="cookie-address"></td>
+                        <td id="cookie-phone-number"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            document.getElementById('cookie-accnum').innerHTML = getCookie('live-accnum')
+            document.getElementById('cookie-national-id').innerHTML = getCookie('live-national-id')
+            document.getElementById('cookie-full-name').innerHTML = getCookie('live-full-name')
+            document.getElementById('cookie-address').innerHTML = 'N/A' //INTENDED ERROR
+            document.getElementById('cookie-phone-number').innerHTML = getCookie('live-phoneNumber')
+        }
+    </script>
+</body>
+
+</html>

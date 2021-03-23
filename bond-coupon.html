@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="state.js"></script>
+    <title>Demo System - Bond Coupon Obligation</title>
+</head>
+
+<body>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="?">
+                <div class="has-text-weight-bold">
+                    Demo System
+                </div>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-light" onclick="logout()">
+                            Sign Out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="main-content columns is-fullheight">
+        <aside class="column is-2 is-fullheight section is-dark">
+            <p class="menu-label">
+                General
+            </p>
+            <ul class="menu-list">
+                <li><a href="home.html">Home</a></li>
+            </ul>
+            <p class="menu-label">
+                Core Banking
+            </p>
+            <ul class="menu-list">
+                <li><a href="cif-find.html">Find CIF</a></li>
+                <li><a href="cif-create.html">Create CIF</a></li>
+                <li><a href="bond-coupon.html">Bond Coupon Obligation</a></li>
+                <li><a href="live-verification.html">Live Verification Process</a></li>
+            </ul>
+        </aside>
+
+        <div class="container">
+            <div class="section">
+                <div class="is-size-3 has-text-weight-semibold">Bond Coupon Obligation</div>
+                <div>Fill Bond Coupon Obligation:</div>
+                <div class="columns is-multiline mx-1 mt-1 mb-0">
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label class="label">Par Value</label>
+                            <input id="par-value" class="input is-small is-primary" type="text" placeholder="Par Value">
+                        </div>
+                        <div class="field">
+                            <label class="label">Coupon Payment</label>
+                            <input id="coupon-payment" class="input is-small is-primary" type="text"
+                                placeholder="Coupon Payment">
+                        </div>
+                        <div class="field">
+                            <label class="label">Coupon Rate</label>
+                            <input id="coupon-rate" class="input is-small is-primary" type="text"
+                                placeholder="Coupon Rate">
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <div class="field">
+                            <label class="label">Maturity Date</label>
+                            <input id="maturity-date" class="input is-small is-primary" type="text"
+                                placeholder="Maturity Date">
+                        </div>
+                        <div class="field">
+                            <label class="label">Call Provisions</label>
+                            <input id="call-provisions" class="input is-small is-primary" type="text"
+                                placeholder="Call Provisions">
+                        </div>
+                        <div class="field">
+                            <label class="label">Market Price</label>
+                            <input id="market-price" class="input is-small is-primary" type="text"
+                                placeholder="Market Price">
+                        </div>
+                    </div>
+                </div>
+                <button class="ml-4 button is-primary is-small" id="save" onclick="input()">Save</button>
+                <p id="error-message" class="ml-4 help is-danger is-hidden">ERROR: All fields cannot be blank.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function input() {
+            let saveButton = document.getElementById('save')
+            let errorMessage = document.getElementById('error-message')
+            saveButton.classList.add('is-loading')
+
+            setTimeout(function () {
+                let parValue = document.getElementById('par-value')
+                let couponPayment = document.getElementById('coupon-payment')
+                let couponRate = document.getElementById('coupon-rate')
+                let maturityDate = document.getElementById('maturity-date')
+                let callProvisions = document.getElementById('call-provisions')
+                let marketPrice = document.getElementById('market-price')
+
+                let hasError = false
+                if (parValue.value.trim() == "") {
+                    parValue.classList.add('is-danger')
+                    hasError = true
+                }
+                if (couponPayment.value.trim() == "") {
+                    couponPayment.classList.add('is-danger')
+                    hasError = true
+                }
+                if (couponRate.value.trim() == "") {
+                    couponRate.classList.add('is-danger')
+                    hasError = true
+                }
+                if (maturityDate.value.trim() == "") {
+                    maturityDate.classList.add('is-danger')
+                    hasError = true
+                }
+                if (callProvisions.value.trim() == "") {
+                    callProvisions.classList.add('is-danger')
+                    hasError = true
+                }
+                if (marketPrice.value.trim() == "") {
+                    marketPrice.classList.add('is-danger')
+                    hasError = true
+                }
+
+                saveButton.classList.remove('is-loading')
+                if (!hasError) {
+                    errorMessage.classList.add('is-hidden')
+
+                    parValue.classList.remove('is-danger')
+                    parValue.disabled = true
+                    couponPayment.classList.remove('is-danger')
+                    couponPayment.disabled = true
+                    couponRate.classList.remove('is-danger')
+                    couponRate.disabled = true
+                    maturityDate.classList.remove('is-danger')
+                    maturityDate.disabled = true
+                    callProvisions.classList.remove('is-danger')
+                    callProvisions.disabled = true
+                    marketPrice.classList.remove('is-danger')
+                    marketPrice.disabled = true
+                    alert("Save Success")
+                } else {
+                    errorMessage.classList.remove('is-hidden')
+                }
+            }, 2000)
+        }
+    </script>
+</body>
+
+</html>

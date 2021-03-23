@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <title>Login</title>
+    <script src="state.js"></script>
+    <title>Demo System - Find CIF</title>
 </head>
 
 <body>
@@ -22,11 +23,10 @@
         </div>
 
         <div id="navbarBasicExample" class="navbar-menu">
-
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-light">
+                        <a class="button is-light" onclick="logout()">
                             Sign Out
                         </a>
                     </div>
@@ -49,6 +49,8 @@
             <ul class="menu-list">
                 <li><a href="cif-find.html">Find CIF</a></li>
                 <li><a href="cif-create.html">Create CIF</a></li>
+                <li><a href="bond-coupon.html">Bond Coupon Obligation</a></li>
+                <li><a href="live-verification.html">Live Verification Process</a></li>
             </ul>
         </aside>
 
@@ -57,13 +59,132 @@
                 <div class="is-size-3 has-text-weight-semibold">Find CIF</div>
                 <div>Find CIF (Customer Information File) ID:</div>
                 <div>
-                    <input class="input is-primary is-small column is-3 mt-2 is-inline-block" type="text" placeholder="XXXXXXXXXXX">
-                    <button class="button is-primary is-small mt-2 is-inline-block">Search</button>
-                    <p class="help is-danger">ERROR: CIF does not exist.</p>
+                    <input id="find-field" class="input is-primary is-small column is-3 mt-2 is-inline-block"
+                        type="text" placeholder="XXXXXXXXXXX">
+                    <button id="find-cif" class="button is-primary is-small mt-2 is-inline-block"
+                        onclick="findCIF()">Search</button>
+                    <p id="error-message" class="help is-danger is-hidden">ERROR: CIF does not exist.</p>
+                    <div id="cif-container" class="columns is-multiline  mt-1 mb-0 is-hidden">
+                        <div class="column is-one-quarter">
+                            <div class="field">
+                                <label class="label">Full Name</label>
+                                <input id="full-name" class="input is-small is-primary" type="text"
+                                    placeholder="Full Name">
+                            </div>
+                            <div class="field">
+                                <label class="label">National Identification Number</label>
+                                <input id="id-number" class="input is-small is-primary" type="text"
+                                    placeholder="National Identification Number">
+                            </div>
+                            <div class="field">
+                                <label class="label">Address</label>
+                                <input id="address" class="input is-small is-primary" type="text" placeholder="Address">
+                            </div>
+                        </div>
+                        <div class="column is-one-quarter">
+                            <div class="field">
+                                <label class="label">Phone Number</label>
+                                <input id="phone-number" class="input is-small is-primary" type="text"
+                                    placeholder="Phone Number">
+                            </div>
+                            <div class="field">
+                                <label class="label">Passport Number</label>
+                                <input id="passport-number" class="input is-small is-primary" type="text"
+                                    placeholder="Passport Number">
+                            </div>
+                            <div class="field">
+                                <label class="label">Gender</label>
+                                <input id="gender" class="input is-small is-primary" type="text" placeholder="Gender">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        let cifs = [
+            {
+                id: "66017427",
+                fullName: "Dian Andriani",
+                phoneNumber: "0800 2113 931",
+                idNumber: "389145991923698",
+                passportNumber: "00782439",
+                address: "Jln. Hang No. 797, Tanjung Pinang 71078, NTB",
+                gender: "Female",
+            },
+            {
+                id: "85596641",
+                fullName: "Jelita Laksmiwati",
+                phoneNumber: "0762 3878 2594",
+                idNumber: "371580366804166",
+                passportNumber: "09253473",
+                address: "Ki. Bank Dagang Negara No. 158, Pariaman 35632, SulTra",
+                gender: "Female",
+            },
+            {
+                id: "34422208",
+                fullName: "Dian Samiah Lailasari",
+                phoneNumber: "0936 5262 3985",
+                idNumber: "340538540454262",
+                passportNumber: "37537944",
+                address: "Jr. Bara Tambar No. 55, Bontang 85220, DKI",
+                gender: "Female",
+            },
+            {
+                id: "73484921",
+                fullName: "Tomi Ramadan",
+                phoneNumber: "0973 9092 4706",
+                idNumber: "333758103641806",
+                passportNumber: "94927615",
+                address: "Gg. Sugiyopranoto No. 76, Subulussalam 17442, SulUt",
+                gender: "Male",
+            },
+            {
+                id: "15111525",
+                fullname: "Panji Saputra",
+                phoneNumber: "0754 7940 7673",
+                idNumber: "341323977905918",
+                passportNumber: "27115491",
+                address: "Jr. Otista No. 507, Palopo 94139, NTB",
+                gender: "Male",
+            }
+        ]
+
+        function findCIF() {
+            let findButton = document.getElementById('find-cif')
+            findButton.classList.add('is-loading')
+
+            setTimeout(function () {
+                let cif = document.getElementById('find-field')
+
+                let result = cifs.filter(object => {
+                    return object.id == cif.value
+                })
+
+                let container = document.getElementById('cif-container')
+                let errorMessage = document.getElementById('error-message')
+                if (result.length == 0) {
+                    //Not Exist
+                    container.classList.add('is-hidden')
+                    errorMessage.classList.remove('is-hidden')
+                } else {
+                    //Exist
+                    container.classList.remove('is-hidden')
+                    errorMessage.classList.add('is-hidden')
+                    document.getElementById('full-name').value = result[0].fullName
+                    document.getElementById('id-number').value = result[0].idNumber
+                    document.getElementById('address').value = result[0].address
+                    document.getElementById('phone-number').value = result[0].phoneNumber
+                    document.getElementById('passport-number').value = result[0].passportNumber
+                    document.getElementById('gender').value = result[0].gender
+                }
+
+                findButton.classList.remove('is-loading')
+            }, 2000)
+        }
+    </script>
 </body>
 
 </html>
